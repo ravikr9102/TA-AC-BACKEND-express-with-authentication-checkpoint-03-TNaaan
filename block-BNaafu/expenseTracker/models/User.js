@@ -8,9 +8,8 @@ let userSchema = new Schema ({
     password: { type: String, minlength: 6},
     age: { type: Number, default: 18},
     phone: { type: Number},
-    country: { type: String}
+    country: { type: String},
 },{ timestamps: true});
-
 
 userSchema.pre('save',function(next){
     if(this.password && this.isModified('password')){
@@ -23,7 +22,6 @@ userSchema.pre('save',function(next){
         next();
     }
 });
-
 
 userSchema.methods.verifyPassword = function(password,cb){
     bcrypt.compare(password, this.password,(err,result) => {
