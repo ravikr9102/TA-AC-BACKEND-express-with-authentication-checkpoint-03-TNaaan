@@ -13,6 +13,7 @@ require('dotenv').config()
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const dashboardRouter = require("./routes/dashboard");
 
 // connect to database
 mongoose.connect('mongodb://localhost:27017/login2', (err) => {
@@ -33,7 +34,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// add session
+
+// session middleware
 app.use(session({
   secret: process.env.SECRET,
   resave: false,
@@ -48,6 +50,7 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use("/dashboard", dashboardRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

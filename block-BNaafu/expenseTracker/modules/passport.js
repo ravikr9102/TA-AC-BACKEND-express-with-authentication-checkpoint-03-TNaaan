@@ -1,5 +1,6 @@
 var passport = require('passport');
 var GitHubStrategy = require('passport-github2').Strategy;
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 var User = require('../models/User');
 
@@ -15,13 +16,15 @@ passport.use(
         var profileData = {
           name: profile._json.name,
           username: profile.username,
-          email: profile.emails[0].value,
+          email: profile.emails[0].value
         };
         try {
           console.log('profile data', profileData);
           const user = await User.findOne({ email: profile.emails[0].value });
+          console.log('user is found',user)
           if (!user) {
             const addedUser = await User.create(profileData);
+            console.log('user is created',addedUser)
             return cb(null, addedUser);
           }
           return cb(null, user);
@@ -31,7 +34,36 @@ passport.use(
       }
     )
   );
-  
+
+  // google
+  passport.use(
+    new GoogleStrategy(
+      {
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: 'http://localhost:3000/auth/google/callback',
+        scope: ['profile'],
+      },
+      async (accessToken, refreshToken, profile, cb) => {
+        var Data = {
+          email: profile.emails[0].value,
+        };
+        try {
+          console.log('profile data',Data);
+          const user = await User.findOne({ email: profile.emails[0].value });
+          
+          if (!user) {
+            const addedUser = await User.create(Data);
+            return cb(null, addedUser);
+          }
+          return cb(null, user);
+        } catch (error) {
+          return cb(error);
+        }
+      }
+    )
+  );
+
   passport.serializeUser(function (user, done) {
     done(null, user.id);
   });
