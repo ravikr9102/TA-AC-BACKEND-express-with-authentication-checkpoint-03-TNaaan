@@ -1,0 +1,14 @@
+<%- include('./partials/header2.ejs')%>
+<%- include('./partials/fontAwesome.ejs')%>
+<main>
+    <section>
+        <form class="form" action="/dashboard/income/new" method="POST">
+            <fieldset>
+                <input type="text" name="source" placeholder="Enter the source of income">
+                <input type="number" name="amount" placeholder="Enter amount">
+                <input type="date" name="date" placeholder="Enter Date">
+            </fieldset>
+            <button class="sign-btn">Submit</button>
+        </form>
+    </section>
+</main>

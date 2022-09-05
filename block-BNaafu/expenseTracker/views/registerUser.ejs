@@ -1,0 +1,22 @@
+<%- include('./partials/header.ejs')%>
+<%- include('./partials/fontAwesome.ejs')%>
+<main>
+    <section>
+        <form class="form" action="/users/register" method="POST">
+            <h2>Sign Up</h2>
+             <fieldset> 
+                <input type="text" name="name" placeholder="Enter your Name here">
+                <input type="text" name="email" placeholder="Enter your Email here">
+                <input type="password" name="password" placeholder="Password">
+                <input type="number" name="age" placeholder="Enter Age">
+                <input type="number" name="Phone" placeholder="Enter Phone">
+                <input type="text" name="country" placeholder="Enter Country">
+             </fieldset> 
+             <button class="sign-btn">Sign up</button>
+             <div class="flex text-center">
+                <p>Have an account ?</p>
+               <div><a href="/users/login">Log in</a></div> 
+             </div>
+        </form>
+    </section>
+</main>

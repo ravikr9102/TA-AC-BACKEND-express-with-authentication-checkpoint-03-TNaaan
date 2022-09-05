@@ -1,0 +1,22 @@
+<%- include('./partials/header.ejs')%>
+<%- include('./partials/fontAwesome.ejs')%>
+<main>
+    <section>
+        <form class="form" action="/users/login" method="POST">
+            <h2>Login</h2>
+            <fieldset>
+                <input type="text" name="email" placeholder="Email Address">
+                <input type="password" name="password" placeholder="Enter password">
+            </fieldset>
+            <button class="sign-btn">Log in</button>
+            <div>
+                <a class="social-btn" href="/auth/google">Log in with Google</a>
+                <a class="social-btn" href="/auth/github">Log in with Github</a>
+            </div>
+            <div class="flex text-center">
+               <p> Don't have an account ?</p>
+              <div><a href="/users/register">Sign up</a></div> 
+            </div>
+        </form>
+    </section>
+</main>
